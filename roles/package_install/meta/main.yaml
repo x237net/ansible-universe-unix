@@ -1,0 +1,30 @@
+# roles/package_install/meta/main.yaml
+# ====================================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2023 universe.unix authors and contributors.
+#
+# This file is part of the *universe.unix* project.
+#
+# *universe.unix* is a free software project. You can redistribute it and/or
+# modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
+#
+allow_duplicates: true
+dependencies:
+    - role: "universe.unix.apt_package_install"
+      when: "ansible_facts.os_family | lower == 'debian'"
+
+    - role: "universe.unix.dnf_package_install"
+      when: "ansible_facts.os_family | lower == 'redhat'"
+
+    - role: "universe.unix.generic_package_install"
+      when: "ansible_facts.os_family | lower not in ('debian', 'redhat')"

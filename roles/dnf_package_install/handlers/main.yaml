@@ -1,0 +1,80 @@
+# roles/dnf_package_install/handlers/main.yaml
+# ============================================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2023 universe.unix authors and contributors.
+#
+# This file is part of the *universe.unix* project.
+#
+# *universe.unix* is a free software project. You can redistribute it and/or
+# modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
+#
+
+# .rpmnew files.
+- name: "Handle .rpmnew files"
+  block:
+    - name: "Locate .rpmnew files"
+      ansible.builtin.find:
+        paths: "{{ package_install_config_search }}"
+        patterns: "*.rpmnew"
+        hidden: true
+        recurse: true
+      register: "_dnf_rpmnew"
+      listen: "system_package_installed"
+
+    - name: "Install .rpmnew files"
+      ansible.builtin.copy:
+        dest: "{{ item.path | replace('.rpmnew', '') }}"
+        src: "{{ item.path }}"
+        remote_src: true
+        mode: "preserve"
+      loop: "{{ _dnf_rpmnew.files }}"
+      listen: "system_package_installed"
+      when: package_install_config_keep == "new"
+
+    - name: "Remove .rpmnew files"
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: "absent"
+      loop: "{{ _dnf_rpmnew.files }}"
+      listen: "system_package_installed"
+      when: "package_install_config_keep is defined"
+
+# .rpmsave files.
+- name: "Handle .rpmsave files"
+  block:
+    - name: "Locate .rpmsave files"
+      ansible.builtin.find:
+        paths: "{{ package_install_config_search }}"
+        patterns: "*.rpmsave"
+        hidden: true
+        recurse: true
+      register: "_dnf_rpmsave"
+      listen: "system_package_installed"
+
+    - name: "Reinstate .rpmsave files"
+      ansible.builtin.copy:
+        dest: "{{ item.path | replace('.rpmsave', '') }}"
+        src: "{{ item.path }}"
+        remote_src: true
+        mode: "preserve"
+      loop: "{{ _dnf_rpmsave.files }}"
+      listen: "system_package_installed"
+      when: package_install_config_keep == "old"
+
+    - name: "Remove .rpmsave files"
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: "absent"
+      loop: "{{ _dnf_rpmsave.files }}"
+      listen: "system_package_installed"
+      when: "package_install_config_keep is defined"
