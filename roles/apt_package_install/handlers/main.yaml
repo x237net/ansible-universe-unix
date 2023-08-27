@@ -1,0 +1,80 @@
+# roles/apt_package_install/handlers/main.yaml
+# ============================================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2023 universe.unix authors and contributors.
+#
+# This file is part of the *universe.unix* project.
+#
+# *universe.unix* is a free software project. You can redistribute it and/or
+# modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
+#
+
+# .dpkg-new files.
+- name: "Handle .dpkg-new files"
+  block:
+    - name: "Locate .dpkg-new files"
+      ansible.builtin.find:
+        paths: "{{ package_install_config_search }}"
+        patterns: "*.dpkg-new"
+        hidden: true
+        recurse: true
+      register: "_apt_dpkg_new"
+      listen: "system_package_installed"
+
+    - name: "Install .dpkg-new files"
+      ansible.builtin.copy:
+        dest: "{{ item.path | replace('.dpkg-new', '') }}"
+        src: "{{ item.path }}"
+        remote_src: true
+        mode: "preserve"
+      loop: "{{ _apt_dpkg_new.files }}"
+      listen: "system_package_installed"
+      when: package_install_config_keep == "new"
+
+    - name: "Remove .dpkg-new files"
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: "absent"
+      loop: "{{ _apt_dpkg_new.files }}"
+      listen: "system_package_installed"
+      when: "package_install_config_keep is defined"
+
+# .dpkg-old files.
+- name: "Handle .dpkg-old files"
+  block:
+    - name: "Locate .dpkg-old files"
+      ansible.builtin.find:
+        paths: "{{ package_install_config_search }}"
+        patterns: "*.dpkg-old"
+        hidden: true
+        recurse: true
+      register: "_apt_dpkg_old"
+      listen: "system_package_installed"
+
+    - name: "Reinstate .dpkg-old files"
+      ansible.builtin.copy:
+        dest: "{{ item.path | replace('.dpkg-old', '') }}"
+        src: "{{ item.path }}"
+        remote_src: true
+        mode: "preserve"
+      loop: "{{ _apt_dpkg_old.files }}"
+      listen: "system_package_installed"
+      when: package_install_config_keep == "old"
+
+    - name: "Remove .dpkg-old files"
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: "absent"
+      loop: "{{ _apt_dpkg_old.files }}"
+      listen: "system_package_installed"
+      when: "package_install_config_keep is defined"
