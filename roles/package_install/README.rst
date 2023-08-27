@@ -54,5 +54,5 @@ Variables
 Events
 ------
 
-``system_package_installed```
+``system_package_installed``
     Triggered after a successful installation of a package.
