@@ -1,5 +1,5 @@
-# roles/dnf_package_install/defaults/main.yaml
-# ============================================
+# roles/apt_package_install/tasks/main.yml
+# ========================================
 #
 # Copying
 # -------
@@ -18,7 +18,10 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
-package_install_config_search:
-  - "/etc"
-  - "/usr"
-  - "/var"
+- name: "Install APT package"
+  ansible.builtin.apt:
+    name: "{{ package_install }}"
+    state: "latest"
+    install_recommends: false
+  notify: "system_package_installed"
+  when: "package_install"

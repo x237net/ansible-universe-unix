@@ -1,5 +1,5 @@
-# roles/apt_package_install/handlers/main.yaml
-# ============================================
+# roles/dnf_package_install/handlers/main.yml
+# ===========================================
 #
 # Copying
 # -------
@@ -19,62 +19,62 @@
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
 
-# .dpkg-new files.
-- name: "Handle .dpkg-new files"
+# .rpmnew files.
+- name: "Handle .rpmnew files"
   block:
-    - name: "Locate .dpkg-new files"
+    - name: "Locate .rpmnew files"
       ansible.builtin.find:
         paths: "{{ package_install_config_search }}"
-        patterns: "*.dpkg-new"
+        patterns: "*.rpmnew"
         hidden: true
         recurse: true
-      register: "_apt_dpkg_new"
+      register: "_dnf_rpmnew"
       listen: "system_package_installed"
 
-    - name: "Install .dpkg-new files"
+    - name: "Install .rpmnew files"
       ansible.builtin.copy:
-        dest: "{{ item.path | replace('.dpkg-new', '') }}"
+        dest: "{{ item.path | replace('.rpmnew', '') }}"
         src: "{{ item.path }}"
         remote_src: true
         mode: "preserve"
-      loop: "{{ _apt_dpkg_new.files }}"
+      loop: "{{ _dnf_rpmnew.files }}"
       listen: "system_package_installed"
       when: package_install_config_keep == "new"
 
-    - name: "Remove .dpkg-new files"
+    - name: "Remove .rpmnew files"
       ansible.builtin.file:
         path: "{{ item.path }}"
         state: "absent"
-      loop: "{{ _apt_dpkg_new.files }}"
+      loop: "{{ _dnf_rpmnew.files }}"
       listen: "system_package_installed"
       when: "package_install_config_keep is defined"
 
-# .dpkg-old files.
-- name: "Handle .dpkg-old files"
+# .rpmsave files.
+- name: "Handle .rpmsave files"
   block:
-    - name: "Locate .dpkg-old files"
+    - name: "Locate .rpmsave files"
       ansible.builtin.find:
         paths: "{{ package_install_config_search }}"
-        patterns: "*.dpkg-old"
+        patterns: "*.rpmsave"
         hidden: true
         recurse: true
-      register: "_apt_dpkg_old"
+      register: "_dnf_rpmsave"
       listen: "system_package_installed"
 
-    - name: "Reinstate .dpkg-old files"
+    - name: "Reinstate .rpmsave files"
       ansible.builtin.copy:
-        dest: "{{ item.path | replace('.dpkg-old', '') }}"
+        dest: "{{ item.path | replace('.rpmsave', '') }}"
         src: "{{ item.path }}"
         remote_src: true
         mode: "preserve"
-      loop: "{{ _apt_dpkg_old.files }}"
+      loop: "{{ _dnf_rpmsave.files }}"
       listen: "system_package_installed"
       when: package_install_config_keep == "old"
 
-    - name: "Remove .dpkg-old files"
+    - name: "Remove .rpmsave files"
       ansible.builtin.file:
         path: "{{ item.path }}"
         state: "absent"
-      loop: "{{ _apt_dpkg_old.files }}"
+      loop: "{{ _dnf_rpmsave.files }}"
       listen: "system_package_installed"
       when: "package_install_config_keep is defined"
