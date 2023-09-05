@@ -1,5 +1,5 @@
-# roles/apt_package_install/tasks/main.yaml
-# =========================================
+# roles/package_install/meta/main.yml
+# ===================================
 #
 # Copying
 # -------
@@ -18,10 +18,13 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
-- name: "Install APT package"
-  ansible.builtin.apt:
-    name: "{{ package_install }}"
-    state: "latest"
-    install_recommends: false
-  notify: "system_package_installed"
-  when: "package_install"
+allow_duplicates: true
+dependencies:
+    - role: "universe.unix.apt_package_install"
+      when: "ansible_facts.os_family | lower == 'debian'"
+
+    - role: "universe.unix.dnf_package_install"
+      when: "ansible_facts.os_family | lower == 'redhat'"
+
+    - role: "universe.unix.generic_package_install"
+      when: "ansible_facts.os_family | lower not in ('debian', 'redhat')"

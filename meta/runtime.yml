@@ -1,10 +1,10 @@
-# roles/generic_package_install/tasks/main.yaml
-# =============================================
+# meta/runtime.yml
+# ================
 #
 # Copying
 # -------
 #
-# Copyright (c) 2023 universe.unix authors and contributors.
+# Copyright (c) 2022 universe.unix authors and contributors.
 #
 # This file is part of the *universe.unix* project.
 #
@@ -18,9 +18,4 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
-- name: "Install system package"
-  ansible.builtin.package:
-    name: "{{ package_install }}"
-    state: "present"
-  notify: "system_package_installed"
-  when: "package_install"
+requires_ansible: ">=2.15.0"

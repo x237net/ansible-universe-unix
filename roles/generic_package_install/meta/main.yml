@@ -1,5 +1,5 @@
-# roles/apt_package_install/defaults/main.yaml
-# ============================================
+# roles/generic_package_install/meta/main.yml
+# ===========================================
 #
 # Copying
 # -------
@@ -18,7 +18,4 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
-package_install_config_search:
-  - "/etc"
-  - "/usr"
-  - "/var"
+allow_duplicates: true

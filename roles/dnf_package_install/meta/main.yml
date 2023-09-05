@@ -1,5 +1,5 @@
-# roles/generic_package_install/meta/main.yaml
-# ============================================
+# roles/dnf_package_install/meta/main.yml
+# =======================================
 #
 # Copying
 # -------
