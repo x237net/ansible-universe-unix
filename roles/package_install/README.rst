@@ -4,11 +4,11 @@
 .. Copying
 .. -------
 ..
-.. Copyright (c) 2023 universe/staging authors and contributors.
+.. Copyright (c) 2023 universe.unix authors and contributors.
 ..
-.. This file is part of the *universe/staging* project.
+.. This file is part of the *universe.unix* project.
 ..
-.. *universe/staging* is a free software project. You can redistribute it and/or
+.. *universe.unix* is a free software project. You can redistribute it and/or
 .. modify it following the terms of the MIT License.
 ..
 .. This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
@@ -16,7 +16,7 @@
 .. PARTICULAR PURPOSE and NONINFRINGEMENT.
 ..
 .. You should have received a copy of the MIT License along with
-.. *universe/staging*. If not, see <http://opensource.org/licenses/MIT>.
+.. *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 ..
 universe.unix.package_install
 =============================
