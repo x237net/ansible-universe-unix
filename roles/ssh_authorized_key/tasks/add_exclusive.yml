@@ -1,0 +1,30 @@
+# roles/ssh_authorized_key/tasks/add_exclusive.yml
+# ================================================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2023 universe.unix authors and contributors.
+#
+# This file is part of the *universe.unix* project.
+#
+# *universe.unix* is a free software project. You can redistribute it and/or
+# modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
+#
+- name: "Clear SSH authorized key file"
+  ansible.posix.authorized_key:
+    state: "present"
+    exclusive: true
+    key: ""
+    user: "{{ ssh_authorized_key_user }}"
+    path: "{{ ssh_authorized_key_path }}"
+    follow: false
+
+- ansible.builtin.import_tasks: "add.yaml"
