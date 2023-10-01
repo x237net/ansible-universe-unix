@@ -33,6 +33,7 @@ tags:
   - "posix"
   - "unix"
 dependencies:
+  "community.general": ">=1.6.0"
   "universe.common": ">=0.1.0"
 repository: "https://github.com/x237net/ansible-universe-unix"
 issues: "https://github.com/x237net/ansible-universe-unix/issues"
