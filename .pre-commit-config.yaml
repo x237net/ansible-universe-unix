@@ -61,3 +61,13 @@ repos:
     rev: "v0.0.291"
     hooks:
       - id: "ruff"
+
+  - repo: "https://github.com/adrienverge/yamllint"
+    rev: "v1.32.0"
+    hooks:
+      - id: "yamllint"
+
+  - repo: "https://github.com/ansible/ansible-lint"
+    rev: "v6.20.2"
+    hooks:
+      - id: "ansible-lint"
