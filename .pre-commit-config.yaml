@@ -67,6 +67,11 @@ repos:
     hooks:
       - id: "yamllint"
 
+  - repo: "https://github.com/jackdewinter/pymarkdown"
+    rev: "v0.9.13.4"
+    hooks:
+      - id: "pymarkdown"
+
   - repo: "https://github.com/ansible/ansible-lint"
     rev: "v6.20.2"
     hooks:
