@@ -18,18 +18,18 @@
   -- You should have received a copy of the MIT License along with
   -- *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
   -->
+
 universe.unix
 =============
 
 An [Ansible](https://www.ansible.com/) collection aimed towards the management
 of Unix-like systems.
 
-
 Licensing
 ---------
 
 This software project is provided under the licensing terms of the
-MIT License stated in the file ``LICENSE.rst``.
+MIT License stated in the file `LICENSE.rst`.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF

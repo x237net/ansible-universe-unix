@@ -1,5 +1,5 @@
-# galaxy.yml
-# ==========
+# .yamllint.yml
+# =============
 #
 # Copying
 # -------
@@ -18,24 +18,14 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
-namespace: "universe"
-name: "unix"
-description: "A set of Ansible modules targeting Unix-like systems."
-version: "0.1.0-alpha.1"
-readme: "README.md"
-authors:
-  - "See AUTHORS.rst"
-license_file: "LICENSE.rst"
-tags:
-  - "linux"
-  - "posix"
-  - "unix"
-dependencies:
-  "community.general": ">=1.6.0"
-  "universe.common": ">=0.1.0"
-repository: "https://github.com/x237net/ansible-universe-unix"
-issues: "https://github.com/x237net/ansible-universe-unix/issues"
-build_ignore:
-  - ".editorconfig"
-  - ".gitignore"
-  - ".pre-commit-config.yaml"
+extends: "default"
+
+rules:
+  document-start:
+    present: false
+  indentation:
+    spaces: 2
+  quoted-strings:
+    required: true
+    quote-type: "double"
+    allow-quoted-quotes: true

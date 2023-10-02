@@ -19,40 +19,60 @@
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+  - repo: "https://github.com/pre-commit/pre-commit-hooks"
+    rev: "v4.4.0"
     hooks:
-      - id: check-added-large-files
-      - id: check-ast
-      - id: check-builtin-literals
-      - id: check-case-conflict
-      - id: check-docstring-first
-      - id: check-json
-      - id: check-merge-conflict
-      - id: check-symlinks
-      - id: check-toml
-      - id: check-yaml
-      - id: debug-statements
-      - id: destroyed-symlinks
-      - id: detect-private-key
-      - id: end-of-file-fixer
-      - id: fix-byte-order-marker
-      - id: fix-encoding-pragma
-        args: [--remove]
-      - id: forbid-submodules
-      - id: mixed-line-ending
-        args: [--fix=lf]
-      - id: name-tests-test
-      - id: no-commit-to-branch
-      - id: pretty-format-json
-      - id: trailing-whitespace
+      - id: "check-added-large-files"
+      - id: "check-ast"
+      - id: "check-builtin-literals"
+      - id: "check-case-conflict"
+      - id: "check-docstring-first"
+      - id: "check-json"
+      - id: "check-merge-conflict"
+      - id: "check-symlinks"
+      - id: "check-toml"
+      - id: "check-yaml"
+      - id: "debug-statements"
+      - id: "destroyed-symlinks"
+      - id: "detect-private-key"
+      - id: "end-of-file-fixer"
+      - id: "fix-byte-order-marker"
+      - id: "fix-encoding-pragma"
+        args: ["--remove"]
+      - id: "forbid-submodules"
+      - id: "mixed-line-ending"
+        args: ["--fix=lf"]
+      - id: "name-tests-test"
+      - id: "no-commit-to-branch"
+      - id: "pretty-format-json"
+      - id: "trailing-whitespace"
 
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
+  - repo: "https://github.com/PyCQA/isort"
+    rev: "5.12.0"
     hooks:
-      - id: isort
+      - id: "isort"
 
-  - repo: https://github.com/psf/black
-    rev: 23.7.0
+  - repo: "https://github.com/psf/black"
+    rev: "23.9.1"
     hooks:
-      - id: black
+      - id: "black"
+
+  - repo: "https://github.com/astral-sh/ruff-pre-commit"
+    rev: "v0.0.291"
+    hooks:
+      - id: "ruff"
+
+  - repo: "https://github.com/adrienverge/yamllint"
+    rev: "v1.32.0"
+    hooks:
+      - id: "yamllint"
+
+  - repo: "https://github.com/jackdewinter/pymarkdown"
+    rev: "v0.9.13.4"
+    hooks:
+      - id: "pymarkdown"
+
+  - repo: "https://github.com/ansible/ansible-lint"
+    rev: "v6.20.2"
+    hooks:
+      - id: "ansible-lint"
