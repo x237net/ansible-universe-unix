@@ -1,0 +1,65 @@
+# roles/ansible_user_name/tasks/main.yml
+# =================================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2023 universe.unix authors and contributors.
+#
+# This file is part of the *universe.unix* project.
+#
+# *universe.unix* is a free software project. You can redistribute it and/or
+# modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
+#
+- name: "Create the Ansible group"
+  ansible.builtin.group:
+    state: "present"
+    name: "{{ ansible_user_group }}"
+    system: true
+
+- name: "Create the Ansible user"
+  ansible.builtin.user:
+    state: "present"
+    name: "{{ ansible_user_name }}"
+    comment: "User for administration of this system via Ansible."
+    create_home: true
+    group: "{{ ansible_user_group }}"
+    home: "{{ ansible_user_home }}"
+    password_lock: true
+    password: "!"
+    shell: "/bin/bash"
+    system: true
+    update_password: "always"
+
+- name: "Set Ansible's administrative rights"
+  ansible.builtin.template:
+    src: "sudoers.j2"
+    dest: "/etc/sudoers.d/ansible"
+    force: true
+    mode: "0640"
+    owner: "root"
+    group: "root"
+  when: "ansible_user_become_sudo"
+
+- name: "Allow the Ansible user to execute sudo"
+  ansible.builtin.import_role:
+    name: "universe.unix.sudo_exec"
+  vars:
+    sudo_exec_user: "{{ ansible_user_name }}"
+  when: >-
+    ansible_user_become_sudo
+    and ansible_user_sudo_exec
+
+- name: "Install SSH authorized keys for the Ansible user"
+  ansible.builtin.import_role:
+    name: "universe.unix.ssh_authorized_key"
+  vars:
+    ssh_authorized_key_user: "{{ ansible_user_name }}"
+  when: "ssh_authorized_keys is defined"

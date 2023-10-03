@@ -1,0 +1,23 @@
+# roles/ansible/user/vars/main.yaml
+# =================================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2023 universe/staging authors and contributors.
+#
+# This file is part of the *universe/staging* project.
+#
+# *universe/staging* is a free software project. You can redistribute it and/or
+# modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe/staging*. If not, see <http://opensource.org/licenses/MIT>.
+#
+#: Path to the Ansible user's home directory.
+ansible_user_home: >-
+  {{ (ansible_user_home_basedir, ansible_user_name) | path_join }}
