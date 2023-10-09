@@ -106,3 +106,30 @@ programs modify while they run.
 `sysconfdir`
 : The directory for installing read-only data files that pertain to a single
 machine–that is to say, files for configuring a host.
+
+### User directories
+
+`home`
+: Path to the user's home directory.
+
+### XDG directories
+
+`xgd_config_home`
+: Directory relative to which user-specific configuration files should be
+stored.
+`xdg_cache_home`
+: Directory relative to which user-specific non-essential data files should be
+stored.
+`xdg_config_dirs`
+: Directories to search for configuration files in addition to the
+`XDG_CONFIG_HOME` base directory.
+`xdg_data_dirs`
+: Directories to search for data files in addition to the `XDG_DATA_HOME`
+base directory.
+`xdg_data_home`
+: Directory relative to which user-specific data files should be stored.
+`xdg_state_home`
+: Directory relative to which user-specific state files should be stored.
+`xdg_runtime_dir`
+: Directory relative to which user-specific non-essential runtime files and
+other file objects (such as sockets, named pipes, ...) should be stored.

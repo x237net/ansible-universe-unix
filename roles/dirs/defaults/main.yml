@@ -25,3 +25,6 @@ dirs_prefix: "/usr/local"
 #: Prefix used in constructing the default values for executable installation
 #: directories.
 dirs_exec_prefix: "{{ dirs_prefix }}"
+
+#: Path to the user's home directory.
+dirs_home: "{{ ansible_facts.user_dir }}"
