@@ -1,0 +1,306 @@
+# roles/dirs/vars/main.yml
+# ========================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2023 universe.unix authors and contributors.
+#
+# This file is part of the *universe.unix* project.
+#
+# *universe.unix* is a free software project. You can redistribute it and/or
+# modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
+#
+
+# Installation directories
+# ------------------------
+
+# Directories
+# ^^^^^^^^^^^
+
+# Prefix
+# """"""
+
+#: Root of the directory tree for read-only architecture-independent data files.
+dirs_datarootdir: "{{ dirs_prefix }}/share"
+#: Directory for installing idiosyncratic read-only architecture-independent
+#: data files for this program.
+dirs_datadir: "{{ datarootdir }}"
+#: Directory for installing header files to be included by user programs with
+#: the C ‘`#include`’ preprocessor directive.
+dirs_includedir: "{{ dirs_prefix }}/include"
+#: Directory for installing data files which the programs modify while they run,
+#: and that pertain to one specific machine.
+dirs_localstatedir: "{{ dirs_prefix }}/var"
+#: Directory for installing architecture-independent data files which the
+#: programs modify while they run.
+dirs_sharedstatedir: "{{ dirs_prefix }}/var/lib"
+#: Directory for installing read-only data files that pertain to a single
+#: machine–that is to say, files for configuring a host.
+dirs_sysconfdir: "{{ dirs_prefix }}/etc"
+
+
+# Executable prefix
+# """""""""""""""""
+
+#: Directory for installing executable programs that users can run.
+dirs_bindir: "{{ dirs_exec_prefix }}/bin"
+#: Directory for installing executable programs to be run by other programs
+#: rather than by users.
+dirs_libexecdir: "{{ dirs_exec_prefix }}/libexec"
+#: Directory for object files and libraries of object code.
+dirs_libdir: >-
+  {{ dirs_exec_prefix }}/lib
+  {{
+    (ansible_facts.userspace_bits | int > 32)
+    | ternary(ansible_facts.userspace_bits, '')
+  }}
+#: Directory for installing executable programs that can be run from the shell,
+#: but are only generally useful to system administrators.
+dirs_sbindir: "{{ dirs_exec_prefix }}/sbin"
+
+
+# Data prefix
+# """""""""""
+
+#: Directory for installing documentation files (other than Info or Man) for
+#: this package.
+dirs_docdir: "{{ dirs_datarootdir }}/doc"
+#: Directory for installing the Info files for this package.
+dirs_infodir: "{{ dirs_datarootdir }}/info"
+#: Top-level directory for installing the man pages (if any) for the package.
+dirs_mandir: "{{ dirs_datarootdir }}/man"
+
+
+# Others
+# """"""
+
+#: Directory for installing data files which the programs modify while they run,
+#: that pertain to one specific machine, and which need not persist longer than
+#: the execution of the program.
+dirs_runstatedir: "/run"
+
+
+# Environment variable names
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+#: Name of the environment variable to a prefix used in constructing the default
+#: values for other installation directories.
+dirs_var_prefix: "PREFIX"
+#: Name of the environment variable to a prefix used in constructing the default
+#: values for executable installation directories.
+dirs_var_exec_prefix: "EXEC_PREFIX"
+
+#: Name of the environment variable to the directory for installing executable
+#: programs that users can run.
+dirs_var_bindir: "BINDIR"
+#: Name of the environment variable to the directory for installing
+#: idiosyncratic read-only architecture-independent data files for this program.
+dirs_var_datadir: "DATADIR"
+#: Name of the environment variable to the root of the directory tree for
+#: read-only architecture-independent data files.
+dirs_var_datarootdir: "DATAROOTDIR"
+#: Name of the environment variable to the directory for installing
+#: documentation files (other than Info or Man) for this package.
+dirs_var_docdir: "DOCDIR"
+#: Name of the environment variable to the directory for installing header
+#: files to be included by user programs with the C ‘`#include`’ preprocessor
+#: directive.
+dirs_var_includedir: "INCLUDEDIR"
+#: Name of the environment variable to the directory for installing the
+#: Info files for this package.
+dirs_var_infodir: "INFODIR"
+#: Name of the environment variable to the directory for installing executable
+#: programs to be run by other programs rather than by users.
+dirs_var_libexecdir: "LIBEXECDIR"
+#: Name of the environment variable to the directory for object files and
+#: libraries of object code.
+dirs_var_libdir: "LIBDIR"
+#: Name of the environment variable to the directory for installing data files
+#: which the programs modify while they run, and that pertain to one specific
+#: machine.
+dirs_var_localstatedir: "LOCALSTATEDIR"
+#: Name of the environment variable to the top-level directory for installing
+#: the man pages (if any) for this package.
+dirs_var_mandir: "MANDIR"
+#: Name of the environment variable to the directory for installing data files
+#: which the programs modify while they run, that pertain to one specific
+#: machine, and which need not persist longer than the execution of the
+#: program.
+dirs_var_runstatedir: "RUNSTATEDIR"
+#: Name of the environment variable to the directory for installing executable
+#: programs that can be run from the shell, but are only generally useful to
+#: system administrators.
+dirs_var_sbindir: "SBINDIR"
+#: Name of the environment variable to the directory for installing
+#: architecture-independent data files which the programs modify while they
+#: run.
+dirs_var_sharedstatedir: "SHAREDSTATEDIR"
+#: Name of the environment variable to the directory for installing read-only
+#: data files that pertain to a single machine–that is to say, files for
+#: configuring a host.
+dirs_var_sysconfdir: "SYSCONFDIR"
+
+
+# Environment variable values
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+#: Environment value of the prefix used in constructing the default values for
+#: other installation directories.
+dirs_env_prefix: "{{ ansible_facts.env[dirs_var_prefix] }}"
+#: Environment value of the prefix used in constructing the default values for
+#: executable installation directories.
+dirs_env_exec_prefix: "{{ ansible_facts.env[dirs_var_exec_prefix] }}"
+
+#: Environment value of the directory for installing executable programs that
+#: users can run.
+dirs_env_bindir: "{{ ansible_facts.env[dirs_var_bindir] }}"
+#: Environment value of the directory for installing idiosyncratic read-only
+#: architecture-independent data files for this program.
+dirs_env_datadir: "{{ ansible_facts.env[dirs_var_datadir] }}"
+#: Environment value of the root of the directory tree for read-only
+#: architecture-independent data files.
+dirs_env_datarootdir: "{{ ansible_facts.env[dirs_var_datarootdir] }}"
+#: Environment value of the directory for installing documentation files (other
+#: than Info or Man) for this package.
+dirs_env_docdir: "{{ ansible_facts.env[dirs_var_docdir] }}"
+#: Environment value of the directory for installing the Info files for this
+#: package.
+dirs_env_infodir: "{{ ansible_facts.env[dirs_var_infodir] }}"
+#: Environment value of the directory for installing header files to be
+#: included by user programs with the C ‘`#include`’ preprocessor directive.
+dirs_env_includedir: "{{ ansible_facts.env[dirs_var_includedir] }}"
+#: Environment value of the directory for object files and libraries of object
+#: code.
+dirs_env_libdir: "{{ ansible_facts.env[dirs_var_libdir] }}"
+#: Environment value of the directory for installing executable programs to be
+#: run by other programs rather than by users.
+dirs_env_libexecdir: "{{ ansible_facts.env[dirs_var_libexecdir] }}"
+#: Environment value of the directory for installing data files which the
+#: programs modify while they run, and that pertain to one specific machine.
+dirs_env_localstatedir: "{{ ansible_facts.env[dirs_var_localstatedir] }}"
+#: Environment value of the top-level directory for installing the man pages
+#: (if any) for the package.
+dirs_env_mandir: "{{ ansible_facts.env[dirs_var_mandir] }}"
+#: Environment value of the directory for installing data files which the
+#: programs modify while they run, that pertain to one specific machine, and
+#: which need not persist longer than the execution of the program.
+dirs_env_runstatedir: "{{ ansible_facts.env[dirs_var_runstatedir] }}"
+#: Environment value of the directory for installing executable programs that
+#: can be run from the shell, but are only generally useful to system
+#: administrators.
+dirs_env_sbindir: "{{ ansible_facts.env[dirs_var_sbindir] }}"
+#: Environment value of the directory for installing architecture-independent
+#: data files which the programs modify while they run.
+dirs_env_sharedstatedir: "{{ ansible_facts.env[dirs_var_sharedstatedir] }}"
+#: Environment value of the directory for installing read-only data files that
+#: pertain to a single machine–that is to say, files for configuring a host.
+dirs_env_sysconfdir: "{{ ansible_facts.env[dirs_var_sysconfdir] }}"
+
+
+# XDG Base Directories
+# --------------------
+
+# User's home directory
+# ^^^^^^^^^^^^^^^^^^^^^
+
+#: Environment variable name for the user's home directory.
+dirs_var_home: "HOME"
+#: Environment value to the users home directory.
+dirs_env_home: "{{ ansible_facts.env[dirs_var_home] }}"
+
+
+# Directories
+# ^^^^^^^^^^^
+
+# User directories
+# """"""""""""""""
+
+#: Directory relative to which user-specific configuration files should be
+#: stored.
+dirs_xgd_config_home: "{{ dirs_home }}/.config"
+#: Directory relative to which user-specific non-essential data files should be
+#: stored.
+dirs_xdg_cache_home: "{{ dirs_home }}/.cache"
+#: Directory relative to which user-specific data files should be stored.
+dirs_xdg_data_home: "{{ dirs_home }}/.local/share"
+#: Directory relative to which user-specific state files should be stored.
+dirs_xdg_state_home: "{{ dirs_home }}/.local/state"
+#: Directory relative to which user-specific non-essential runtime files and
+#: other file objects (such as sockets, named pipes, ...) should be stored.
+dirs_xdg_runtime_dir: "{{ dirs_runstatedir }}/user/{{ ansible_facts.user_uid }}"
+
+
+# System directories
+# """"""""""""""""""
+
+#: Directories to search for configuration files in addition to the
+#: ``XDG_CONFIG_HOME`` base directory.
+dirs_xdg_config_dirs: "{{ dirs_sysconfg }}/xdg"
+#: Directories to search for data files in addition to the ``XDG_DATA_HOME``
+#: base directory.
+dirs_xdg_data_dirs: >-
+  {{
+    [dirs_datarootdir, '/usr/local/share', '/usr/share'] | unique | join(':')
+  }}
+
+
+# Environment variable names
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+#: Environment variable name of the directory relative to which user-specific
+#: configuration files should be stored.
+dirs_var_xgd_config_home: "XDG_CONFIG_HOME"
+#: Environment variable name of the directory relative to which user-specific
+#: non-essential data files should be stored.
+dirs_var_xdg_cache_home: "XDG_CACHE_HOME"
+#: Environment variable name of the directories to search for configuration
+#: files in addition to the ``XDG_CONFIG_HOME`` base directory.
+dirs_var_xdg_config_dirs: "XDG_CONFIG_DIRS"
+#: Environment variable name of the directories to search for data files in
+#: addition to the ``XDG_DATA_HOME`` base directory.
+dirs_var_xdg_data_dirs: "XDG_DATA_DIRS"
+#: Environment variable name of the directory relative to which user-specific
+#: data files should be stored.
+dirs_var_xdg_data_home: "XDG_DATA_HOME"
+#: Environment variable name of the directory relative to which user-specific
+#: state files should be stored.
+dirs_var_xdg_state_home: "XDG_STATE_HOME"
+#: Environment variable name of the directory relative to which user-specific
+#: non-essential runtime files and other file objects (such as sockets, named
+#: pipes, ...) should be stored.
+dirs_var_xdg_runtime_dir: "XDG_RUNTIME_DIR"
+
+
+# Environment variable values
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+#: Environment value of the directory relative to which user-specific
+#: configuration files should be stored.
+dirs_env_xgd_config_home: "{{ ansible_facts.env[dirs_var_xdg_config_home] }}"
+#: Environment value of the directory relative to which user-specific
+#: non-essential data files should be stored.
+dirs_env_xdg_cache_home: "{{ ansible_facts.env[dirs_var_xdg_cache_home] }}"
+#: Environment value of the directories to search for configuration files in
+#: addition to the ``XDG_CONFIG_HOME`` base directory.
+dirs_env_xdg_config_dirs: "{{ ansible_facts.env[dirs_var_xdg_config_dirs] }}"
+#: Environment variable name of the directories to search for data files in
+#: addition to the ``XDG_DATA_HOME`` base directory.
+dirs_env_xdg_data_dirs: "{{ ansible_facts.env[dirs_var_xdg_data_dirs] }}"
+#: Environment value of the directory relative to which user-specific
+#: data files should be stored.
+dirs_env_xdg_data_home: "{{ ansible_facts.env[dirs_var_xdg_data_home] }}"
+#: Environment variable name of the directory relative to which user-specific
+#: state files should be stored.
+dirs_env_xdg_state_home: "{{ ansible_facts.env[dirs_var_xdg_state_home] }}"
+#: Environment value of the directory relative to which user-specific
+#: non-essential runtime files and other file objects (such as sockets, named
+#: pipes, ...) should be stored.
+dirs_env_xdg_runtime_dir: "{{ ansible_facts.env[dirs_var_xdg_runtime_dir] }}"
