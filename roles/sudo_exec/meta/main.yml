@@ -20,3 +20,9 @@
 #
 dependencies:
   - role: "universe.unix.sudo_install"
+
+galaxy_info:
+  author: "universe.unix authors"
+  description: "Manage the SSH's authorized keys file for a given user."
+  license: "MIT"
+  min_ansible_version: "2.15.0"

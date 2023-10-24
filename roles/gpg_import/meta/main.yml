@@ -20,3 +20,9 @@
 #
 dependencies:
   - role: "universe.unix.gpg_install"
+
+galaxy_info:
+  author: "universe.unix authors"
+  description: "Add a new key into the system's (root) keyring."
+  license: "MIT"
+  min_ansible_version: "2.15.0"

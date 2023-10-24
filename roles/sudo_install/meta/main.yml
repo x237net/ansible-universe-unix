@@ -20,3 +20,11 @@
 #
 dependencies:
   - role: "universe.unix.package_install"
+
+galaxy_info:
+  author: "universe.unix authors"
+  description: >-
+    Ensure that sudo, the administration delegation utility, is installed on
+    the system.
+  license: "MIT"
+  min_ansible_version: "2.15.0"

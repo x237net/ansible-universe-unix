@@ -26,4 +26,4 @@ Purpose
 -------
 
 The `universe.unix.sudo_install` role ensures that [sudo](https://www.sudo.ws/),
-the administration delegation utility is installed on the system.
+the administration delegation utility, is installed on the system.

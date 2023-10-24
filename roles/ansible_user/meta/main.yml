@@ -21,3 +21,11 @@
 dependencies:
   - role: "universe.unix.sudo_install"
     when: "ansible_user_become_sudo"
+
+galaxy_info:
+  author: "universe.unix authors"
+  description: >-
+    Ensure that a system user is properly setup for the host to be managed by
+    Ansible.
+  license: "MIT"
+  min_ansible_version: "2.15.0"

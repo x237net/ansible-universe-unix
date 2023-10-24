@@ -1,5 +1,5 @@
-# roles/dirs/meta/main.yml
-# ========================
+# roles/ssh_authorized_key/meta/main.yml
+# ======================================
 #
 # Copying
 # -------
@@ -20,7 +20,6 @@
 #
 galaxy_info:
   author: "universe.unix authors"
-  description: >-
-    Provide installation directory variables so that other roles can use them.
+  description: "Manage the SSH's authorized keys file for a given user."
   license: "MIT"
   min_ansible_version: "2.15.0"
