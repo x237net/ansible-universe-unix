@@ -76,3 +76,8 @@ repos:
     rev: "v6.20.2"
     hooks:
       - id: "ansible-lint"
+
+  - repo: "https://github.com/ansible-community/antsibull-changelog"
+    rev: "0.23.0"
+    hooks:
+      - id: "antsibull-changelog-lint"

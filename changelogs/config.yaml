@@ -1,0 +1,60 @@
+# changelogs/config.yaml
+# ======================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2022 universe.unix authors and contributors.
+#
+# This file is part of the *universe.unix* project.
+#
+# *universe.unix* is a free software project. You can redistribute it and/or
+# modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
+#
+changelog_filename_template: "../CHANGELOG.rst"
+changelog_filename_version_depth: 0
+changes_file: "changelog.yaml"
+changes_format: "combined"
+ignore_other_fragment_extensions: true
+keep_fragments: false
+mention_ancestor: true
+new_plugins_after_name: "removed_features"
+notesdir: "fragments"
+prelude_section_name: "release_summary"
+prelude_section_title: "Release Summary"
+sanitize_changelog: true
+sections:
+  -
+    - "major_changes"
+    - "Major Changes"
+  -
+    - "minor_changes"
+    - "Minor Changes"
+  -
+    - "breaking_changes"
+    - "Breaking Changes / Porting Guide"
+  -
+    - "deprecated_features"
+    - "Deprecated Features"
+  -
+    - "removed_features"
+    - "Removed Features (previously deprecated)"
+  -
+    - "security_fixes"
+    - "Security Fixes"
+  -
+    - "bugfixes"
+    - "Bugfixes"
+  -
+    - "known_issues"
+    - "Known Issues"
+title: "universe.unix"
+trivial_section_name: "trivial"
+use_fqcn: true
