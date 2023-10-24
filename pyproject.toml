@@ -18,6 +18,10 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
+[build-system]
+requires = ["poetry>=1.0"]
+build-backend = "poetry.masonry.api"
+
 [tool.isort]
 profile = "black"
 known_third_party = []
@@ -32,3 +36,55 @@ lines_between_types = 1
 multi_line_output = 3
 order_by_type = true
 use_parentheses = true
+
+[tool.poetry]
+name = "ansible-universe-unix"
+version = "0.1.0"
+authors = ["See AUTHORS.rst"]
+maintainers = [
+    "Jimmy Thrasibule <dev@jimmy.lt>",
+]
+description = "A general purpose set of Ansible modules."
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/x237net/ansible-universe-common"
+keywords = [
+    "ansible",
+    "collection",
+    "tools",
+    "unix",
+]
+# See https://pypi.python.org/pypi?%3Aaction=list_classifiers.
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Framework :: Ansible",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python",
+    "Topic :: System :: Systems Administration",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+include = [
+    "AUTHORS.md",
+    "CONTRIBUTORS.rst",
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.group.dev.dependencies]
+ansible = "^8.5.0"
+antsibull-changelog = {extras = ["toml"], version = "^0.23.0"}
+
+[tool.poetry.group.lint.dependencies]
+black = "^23.10.0"
+isort = "^5.12.0"
+pymarkdown = "^0.1.0"
+yamllint = "^1.32.0"

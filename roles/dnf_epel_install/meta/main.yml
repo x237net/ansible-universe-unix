@@ -1,5 +1,5 @@
-# roles/dirs/meta/main.yml
-# ========================
+# roles/dnf_epel_install/meta/main.yml
+# ====================================
 #
 # Copying
 # -------
@@ -21,6 +21,11 @@
 galaxy_info:
   author: "universe.unix authors"
   description: >-
-    Provide installation directory variables so that other roles can use them.
+    Install and enable the Extra Packages for Enterprise Linux (EPEL) repository
+    on the system.
   license: "MIT"
   min_ansible_version: "2.15.0"
+  platforms:
+    - name: "EL"
+      versions:
+        - "all"

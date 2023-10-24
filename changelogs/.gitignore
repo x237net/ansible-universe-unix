@@ -1,10 +1,10 @@
-# roles/dirs/meta/main.yml
-# ========================
+# changelogs/.gitignore
+# =====================
 #
 # Copying
 # -------
 #
-# Copyright (c) 2023 universe.unix authors and contributors.
+# Copyright (c) 2022 universe.unix authors and contributors.
 #
 # This file is part of the *universe.unix* project.
 #
@@ -18,9 +18,4 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
-galaxy_info:
-  author: "universe.unix authors"
-  description: >-
-    Provide installation directory variables so that other roles can use them.
-  license: "MIT"
-  min_ansible_version: "2.15.0"
+.plugin-cache.yaml

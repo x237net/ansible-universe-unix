@@ -19,3 +19,10 @@
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
 allow_duplicates: true
+
+galaxy_info:
+  author: "universe.unix authors"
+  description: >-
+    Use the DNF software package manager to install packages on the system.
+  license: "MIT"
+  min_ansible_version: "2.15.0"

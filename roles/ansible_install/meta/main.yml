@@ -20,3 +20,9 @@
 #
 dependencies:
   - role: "universe.unix.package_install"
+
+galaxy_info:
+  author: "universe.unix authors"
+  description: "Install Ansible, the IT automation tool."
+  license: "MIT"
+  min_ansible_version: "2.15.0"

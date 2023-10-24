@@ -25,7 +25,7 @@ universe.unix.root_disable
 Purpose
 -------
 
-The `universe.unix.root_disable` role configures the system such as the
+The `universe.unix.root_disable` role configures the system such that the
 `root` administrative user is forbidden from login in. The role ensures that
 `sudo` is installed to prevent lock in.
 

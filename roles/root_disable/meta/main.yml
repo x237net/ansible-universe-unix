@@ -20,3 +20,11 @@
 #
 dependencies:
   - role: "universe.unix.sudo_install"
+
+galaxy_info:
+  author: "universe.unix authors"
+  description: >-
+    Configure the system such that the `root` administrative user is forbidden
+    from login in.
+  license: "MIT"
+  min_ansible_version: "2.15.0"
