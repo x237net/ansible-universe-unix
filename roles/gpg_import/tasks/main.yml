@@ -19,27 +19,27 @@
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
 - block:
-  - name: "Create temporary ASC file"
-    ansible.builtin.tempfile:
-      state: "file"
-      suffix: ".asc"
-    register: "_gpg_tmp_asc"
+    - name: "Create temporary ASC file"
+      ansible.builtin.tempfile:
+        state: "file"
+        suffix: ".asc"
+      register: "_gpg_tmp_asc"
 
-  - name: "Write ASC file content"
-    ansible.builtin.blockinfile:
-      state: "present"
-      path: "{{ _gpg_tmp_asc.path }}"
-      block: "{{ gpg_import_content }}"
-      marker: ""
+    - name: "Write ASC file content"
+      ansible.builtin.blockinfile:
+        state: "present"
+        path: "{{ _gpg_tmp_asc.path }}"
+        block: "{{ gpg_import_content }}"
+        marker: ""
 
-  - name: "Import GPG key"
-    ansible.builtin.command:
-      cmd: "gpg --import {{ _gpg_tmp_asc.path }}"
+    - name: "Import GPG key"
+      ansible.builtin.command:
+        cmd: "gpg --import {{ _gpg_tmp_asc.path }}"
 
-  - ansible.builtin.debug:
-      msg: "Cleanup"
-    notify: "gpg-import-cleanup"
-    changed_when: true
+    - ansible.builtin.debug:
+        msg: "Cleanup"
+      notify: "gpg-import-cleanup"
+      changed_when: true
   rescue:
     - ansible.builtin.debug:
         msg: "Cleanup"

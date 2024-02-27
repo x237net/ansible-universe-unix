@@ -39,7 +39,7 @@
         mode: "preserve"
       loop: "{{ _apt_dpkg_new.files }}"
       listen: "system_package_installed"
-      when: package_install_config_keep == "new"
+      when: "package_install_config_keep == 'new'"
 
     - name: "Remove .dpkg-new files"
       ansible.builtin.file:
@@ -69,7 +69,7 @@
         mode: "preserve"
       loop: "{{ _apt_dpkg_old.files }}"
       listen: "system_package_installed"
-      when: package_install_config_keep == "old"
+      when: "package_install_config_keep == 'old'"
 
     - name: "Remove .dpkg-old files"
       ansible.builtin.file:

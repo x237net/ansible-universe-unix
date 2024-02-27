@@ -40,7 +40,7 @@
     append: true
     groups:
       - "{{ sudo_exec_group }}"
-  loop : "{{ sudo_exec_user | list }}"
+  loop: "{{ sudo_exec_user | list }}"
   when: "sudo_exec_user is not string and sudo_exec_user is iterable"
 
 - name: "Set sudo binary permissions"

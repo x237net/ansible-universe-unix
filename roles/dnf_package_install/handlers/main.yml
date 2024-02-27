@@ -39,7 +39,7 @@
         mode: "preserve"
       loop: "{{ _dnf_rpmnew.files }}"
       listen: "system_package_installed"
-      when: package_install_config_keep == "new"
+      when: "package_install_config_keep == 'new'"
 
     - name: "Remove .rpmnew files"
       ansible.builtin.file:
@@ -69,7 +69,7 @@
         mode: "preserve"
       loop: "{{ _dnf_rpmsave.files }}"
       listen: "system_package_installed"
-      when: package_install_config_keep == "old"
+      when: "package_install_config_keep == 'old'"
 
     - name: "Remove .rpmsave files"
       ansible.builtin.file:
