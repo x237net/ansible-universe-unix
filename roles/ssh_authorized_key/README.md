@@ -34,7 +34,7 @@ public key authentication in SSH.
 Variables
 ---------
 
-`ssh_authorized_keys` – **list**
+`ssh_authorized_key_list` – **list**
 : A list of public SSH keys to be authorized. Each key is a dictionary
 allowing the following keys:
 

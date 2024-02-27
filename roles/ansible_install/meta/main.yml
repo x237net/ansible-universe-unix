@@ -20,6 +20,8 @@
 #
 dependencies:
   - role: "universe.unix.package_install"
+    vars:
+      package_install: "{{ ansible_install_package }}"
 
 galaxy_info:
   author: "universe.unix authors"

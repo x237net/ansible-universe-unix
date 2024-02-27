@@ -27,6 +27,8 @@ rules:
     present: false
   indentation:
     spaces: 2
+  line-length:
+    max: 160
   quoted-strings:
     required: true
     quote-type: "double"

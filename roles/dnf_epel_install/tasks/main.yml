@@ -27,4 +27,4 @@
   ansible.builtin.import_role:
     name: "universe.unix.dnf_package_install"
   vars:
-    package_install: "{{ dnf_epel_install_package_url }}"
+    package_install: "{{ dnf_epel_install_package_url }}"  # noqa: var-naming[no-role-prefix]

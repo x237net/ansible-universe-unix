@@ -23,4 +23,4 @@
 
 # Allow the Ansible user's group to administrate this host without password.
 # All activity from this group is logged.
-%{{ ansible_group }} ALL=(ALL) NOPASSWD: LOG_INPUT: LOG_OUTPUT: ALL
+%{{ ansible_user_group }} ALL=(ALL) NOPASSWD: LOG_INPUT: LOG_OUTPUT: ALL

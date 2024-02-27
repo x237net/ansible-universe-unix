@@ -18,5 +18,5 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
-package_install:
+timezone_install_package:
   - "tzdata"
