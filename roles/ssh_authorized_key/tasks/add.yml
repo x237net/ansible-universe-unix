@@ -18,7 +18,7 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
-- name: "Add SSH authorized key"
+- name: "Add SSH key {{ item.comment | default('') }}"
   ansible.posix.authorized_key:
     state: "present"
     key: "{{ item.key }}"

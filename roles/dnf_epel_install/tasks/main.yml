@@ -23,7 +23,7 @@
     key: "{{ dnf_epel_install_key_url }}"
     state: "present"
 
-- name: Enable the Extra Packages for Enterprise Linux (EPEL) repository
+- name: "Enable the Extra Packages for Enterprise Linux (EPEL) repository"
   ansible.builtin.import_role:
     name: "universe.unix.dnf_package_install"
   vars:

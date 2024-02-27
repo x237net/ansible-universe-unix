@@ -27,4 +27,5 @@
     path: "{{ ssh_authorized_key_path }}"
     follow: false
 
-- ansible.builtin.import_tasks: "add.yml"
+- name: "Authorize SSH keys"
+  ansible.builtin.import_tasks: "add.yml"

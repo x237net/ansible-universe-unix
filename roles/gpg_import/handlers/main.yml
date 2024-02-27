@@ -18,8 +18,9 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
-- name: "gpg-import-cleanup"
+- name: "Remove temporary ASC file"
   ansible.builtin.file:
     path: "{{ _gpg_tmp_asc.path }}"
     state: "absent"
+  listen: "gpg-import-cleanup"
   when: "_gpg_tmp_asc.path is defined"

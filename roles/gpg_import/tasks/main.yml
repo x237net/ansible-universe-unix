@@ -18,7 +18,9 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
-- block:
+- name: "Import GPG key"
+  when: "gpg_import_content is defined"
+  block:
     - name: "Create temporary ASC file"
       ansible.builtin.tempfile:
         state: "file"
@@ -32,17 +34,18 @@
         block: "{{ gpg_import_content }}"
         marker: ""
 
-    - name: "Import GPG key"
+    - name: "Call GPG import"
       ansible.builtin.command:
         cmd: "gpg --import {{ _gpg_tmp_asc.path }}"
 
-    - ansible.builtin.debug:
+    - name: "Perform cleanup"
+      ansible.builtin.debug:
         msg: "Cleanup"
       notify: "gpg-import-cleanup"
       changed_when: true
   rescue:
-    - ansible.builtin.debug:
+    - name: "Perform cleanup"
+      ansible.builtin.debug:
         msg: "Cleanup"
       notify: "gpg-import-cleanup"
       changed_when: true
-  when: "gpg_import_content is defined"
