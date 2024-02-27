@@ -21,6 +21,8 @@
 extends: "default"
 
 rules:
+  comments:
+    require-starting-space: false
   document-start:
     present: false
   indentation:
