@@ -24,7 +24,7 @@ _package_install:
 
 package_install: >-
   {{
-    _package_install | get(
+    _package_install | universe.common.get(
       ansible_facts.distribution | lower,
       ansible_facts.os_family | lower
     )
