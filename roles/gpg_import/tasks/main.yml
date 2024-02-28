@@ -36,7 +36,9 @@
 
     - name: "Call GPG import"
       ansible.builtin.command:
-        cmd: "gpg --import {{ _gpg_tmp_asc.path }}"
+        cmd: "gpg --textmode --import {{ _gpg_tmp_asc.path }}"
+      register: "_out"
+      changed_when: "_out.stderr_lines | select('search', 'imported: 1') | list"
 
     - name: "Perform cleanup"
       ansible.builtin.debug:
