@@ -18,31 +18,36 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
-- block:
-  - name: "Create temporary ASC file"
-    ansible.builtin.tempfile:
-      state: "file"
-      suffix: ".asc"
-    register: "_gpg_tmp_asc"
+- name: "Import GPG key"
+  when: "gpg_import_content is defined"
+  block:
+    - name: "Create temporary ASC file"
+      ansible.builtin.tempfile:
+        state: "file"
+        suffix: ".asc"
+      register: "_gpg_tmp_asc"
 
-  - name: "Write ASC file content"
-    ansible.builtin.blockinfile:
-      state: "present"
-      path: "{{ _gpg_tmp_asc.path }}"
-      block: "{{ gpg_import_content }}"
-      marker: ""
+    - name: "Write ASC file content"
+      ansible.builtin.blockinfile:
+        state: "present"
+        path: "{{ _gpg_tmp_asc.path }}"
+        block: "{{ gpg_import_content }}"
+        marker: ""
 
-  - name: "Import GPG key"
-    ansible.builtin.command:
-      cmd: "gpg --import {{ _gpg_tmp_asc.path }}"
+    - name: "Call GPG import"
+      ansible.builtin.command:
+        cmd: "gpg --textmode --import {{ _gpg_tmp_asc.path }}"
+      register: "_out"
+      changed_when: "_out.stderr_lines | select('search', 'imported: 1') | list"
 
-  - ansible.builtin.debug:
-      msg: "Cleanup"
-    notify: "gpg-import-cleanup"
-    changed_when: true
-  rescue:
-    - ansible.builtin.debug:
+    - name: "Perform cleanup"
+      ansible.builtin.debug:
         msg: "Cleanup"
       notify: "gpg-import-cleanup"
       changed_when: true
-  when: "gpg_import_content is defined"
+  rescue:
+    - name: "Perform cleanup"
+      ansible.builtin.debug:
+        msg: "Cleanup"
+      notify: "gpg-import-cleanup"
+      changed_when: true

@@ -21,6 +21,6 @@
 - name: "Install system package"
   ansible.builtin.package:
     name: "{{ package_install }}"
-    state: "present"
+    state: "{{ package_install_state }}"
   notify: "system_package_installed"
   when: "package_install"

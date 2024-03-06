@@ -21,7 +21,7 @@
 - name: "Install APT package"
   ansible.builtin.apt:
     name: "{{ package_install }}"
-    state: "latest"
+    state: "{{ package_install_state }}"
     install_recommends: false
   notify: "system_package_installed"
   when: "package_install"

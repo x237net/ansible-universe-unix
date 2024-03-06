@@ -47,6 +47,10 @@ deleted.
 : A list of folder within which to search for potential configuration files
 marked marked by the package installer.
 
+`package_install_state` (Default: `"present"`)
+: Whether to install (``present``), or remove (``absent``) a package. You can
+use ``latest`` to ensure that the latest version is installed.
+
 Events
 ------
 

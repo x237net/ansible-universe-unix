@@ -20,11 +20,11 @@
 #
 - name: "Import the Extra Packages for Enterprise Linux (EPEL) GPG key"
   ansible.builtin.rpm_key:
-      key: "{{ dnf_epel_install_key_url }}"
-      state: "present"
+    key: "{{ dnf_epel_install_key_url }}"
+    state: "present"
 
-- name: Enable the Extra Packages for Enterprise Linux (EPEL) repository
+- name: "Enable the Extra Packages for Enterprise Linux (EPEL) repository"
   ansible.builtin.import_role:
     name: "universe.unix.dnf_package_install"
   vars:
-    package_install: "{{ dnf_epel_install_package_url }}"
+    package_install: "{{ dnf_epel_install_package_url }}"  # noqa: var-naming[no-role-prefix]

@@ -25,4 +25,4 @@
     user: "{{ ssh_authorized_key_user }}"
     path: "{{ ssh_authorized_key_path }}"
     follow: false
-  loop: "{{ ssh_authorized_keys }}"
+  loop: "{{ ssh_authorized_key_list }}"

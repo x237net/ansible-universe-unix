@@ -1,5 +1,5 @@
-# roles/timezone/vars/main.yml
-# ============================
+# roles/generic_package_install/defaults/main.yml
+# ===============================================
 #
 # Copying
 # -------
@@ -18,5 +18,4 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
-timezone_install_package:
-  - "tzdata"
+package_install_state: "present"  # noqa: var-naming[no-role-prefix]

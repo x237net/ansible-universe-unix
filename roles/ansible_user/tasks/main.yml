@@ -62,4 +62,4 @@
     name: "universe.unix.ssh_authorized_key"
   vars:
     ssh_authorized_key_user: "{{ ansible_user_name }}"
-  when: "ssh_authorized_keys is defined"
+  when: "ssh_authorized_key_list is defined"

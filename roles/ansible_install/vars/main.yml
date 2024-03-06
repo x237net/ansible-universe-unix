@@ -18,13 +18,13 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
-_package_install:
+ansible_install_package_os:
   redhat:
     - "ansible-core"
 
-package_install: >-
+ansible_install_package: >-
   {{
-    _package_install | universe.common.get(
+    ansible_install_package_os | universe.common.get(
       ansible_facts.distribution | lower,
       ansible_facts.os_family | lower
     )
