@@ -21,7 +21,7 @@
 namespace: "universe"
 name: "unix"
 description: "A set of Ansible modules targeting Unix-like systems."
-version: "0.1.0"
+version: "0.2.0"
 readme: "README.md"
 authors:
   - "See AUTHORS.rst"

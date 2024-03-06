@@ -25,11 +25,25 @@ universe.unix Release Notes
 .. contents:: Topics
 
 
+v0.2.0
+======
+
+Release Summary
+---------------
+
+Few fixes.
+
+Minor Changes
+-------------
+
+- package_install - Add the variable ``package_install_state`` to
+  specify the installation state of a package.
+
 v0.1.0
 ======
 
 Release Summary
 ---------------
 
-First release of the ``universe.unix`` collection. Everything must be
-considered early stage and no yet ready for production.
+First release of the ``universe.unix`` collection. Everything
+must be considered early stage and no yet ready for production.
