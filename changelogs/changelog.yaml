@@ -26,3 +26,12 @@ releases:
         First release of the ``universe.unix`` collection. Everything
         must be considered early stage and no yet ready for production.
     release_date: "2023-10-24"
+  0.2.0:
+    changes:
+      release_summary: |-
+        Few fixes.
+      minor_changes:
+        - |-
+          package_install - Add the variable ``package_install_state`` to
+          specify the installation state of a package.
+    release_date: "2024-03-07"
