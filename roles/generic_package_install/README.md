@@ -35,6 +35,11 @@ Variables
 `package_install`
 : A single package or a list of packages to be installed.
 
+`package_install_state` (Default: `"present"`)
+: Whether to install (``present``), or remove (``absent``) a package. You can
+use other states like ``latest`` ONLY if they are supported by the underlying
+package module(s) executed.
+
 Events
 ------
 

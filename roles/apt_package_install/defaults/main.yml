@@ -22,3 +22,5 @@ package_install_config_search:  # noqa: var-naming[no-role-prefix]
   - "/etc"
   - "/usr"
   - "/var"
+
+package_install_state: "present"  # noqa: var-naming[no-role-prefix]

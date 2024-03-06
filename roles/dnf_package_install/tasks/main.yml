@@ -21,6 +21,6 @@
 - name: "Install DNF package"
   ansible.builtin.dnf:
     name: "{{ package_install }}"
-    state: "latest"
+    state: "{{ package_install_state }}"
   notify: "system_package_installed"
   when: "package_install"
