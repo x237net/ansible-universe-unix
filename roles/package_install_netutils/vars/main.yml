@@ -1,0 +1,45 @@
+# roles/package_install_netutils/vars/main.yml
+# ============================================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2023 universe.unix authors and contributors.
+#
+# This file is part of the *universe.unix* project.
+#
+# *universe.unix* is a free software project. You can redistribute it and/or
+# modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
+#
+package_install_netutils_redhat:
+  - "bind-utils"
+  - "curl"
+  - "ethtool"
+  - "ipcalc"
+  - "iproute"
+  - "iputils"
+  - "whois"
+  - "mtr"
+  - "nmap-ncat"
+  - "openssh"
+  - "rsync"
+  - "tcpdump"
+  - "traceroute"
+
+package_install_netutils_family:
+  redhat: "{{ package_install_netutils_redhat }}"
+
+package_install_netutils_install: >-
+  {{
+    package_install_netutils_family | universe.common.get(
+      ansible_facts.distribution | lower,
+      ansible_facts.os_family | lower
+    )
+  }}
