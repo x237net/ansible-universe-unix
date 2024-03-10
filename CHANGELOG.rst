@@ -25,6 +25,26 @@ universe.unix Release Notes
 .. contents:: Topics
 
 
+v0.3.0
+======
+
+Release Summary
+---------------
+
+Package groups installation.
+
+Major Changes
+-------------
+
+- package_install_core - Add a new role to install the bare minimum list
+  of packages required for a pleasant operating system experience.
+- package_install_hwutils - Add a new role to install a set of utilities
+  to manage bare-metal systems.
+- package_install_netutils - Add a new role to install a set of network
+  related utilities.
+- package_install_utils - Add a new role to install a set of system
+  utilities to improve the usage experience.
+
 v0.2.0
 ======
 
