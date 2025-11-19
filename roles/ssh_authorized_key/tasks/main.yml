@@ -28,7 +28,7 @@
   ansible.builtin.import_tasks: "add_exclusive.yml"
   when:
     - "ssh_authorized_key_state == 'present'"
-    - "not ssh_authorized_key_exclusive"
+    - "ssh_authorized_key_exclusive"
 
 - name: "Forbid SSH keys"
   ansible.builtin.import_tasks: "remove.yml"
