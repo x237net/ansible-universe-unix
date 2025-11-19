@@ -1,0 +1,85 @@
+# roles/podman_install/tasks/user.yml
+# ===================================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2023 universe.unix authors and contributors.
+#
+# This file is part of the *universe.unix* project.
+#
+# *universe.unix* is a free software project. You can redistribute it and/or
+# modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
+#
+- name: "Create the Podman user"
+  block:
+    - name: "Create group {{ podman_install_user_group }}"
+      ansible.builtin.group:
+        state: "present"
+        name: "{{ podman_install_user_group }}"
+        system: true
+
+    - name: "Create user {{ podman_install_user_name }}"
+      ansible.builtin.user:
+        state: "present"
+        name: "{{ podman_install_user_name }}"
+        comment: "User to run rootless Podman containers."
+        create_home: true
+        group: "{{ podman_install_user_group }}"
+        home: "{{ podman_install_user_home }}"
+        password_lock: true
+        password: "!"
+        shell: "/usr/sbin/nologin"
+        system: true
+        update_password: "always"
+      register: "_podman_install_user_info"
+
+    - name: "Allocate UIDs to user {{ podman_install_user_name }}"
+      ansible.builtin.command:
+        cmd: >-
+          usermod
+            --add-subuids
+            {{
+              "%d-%d" | format(
+                podman_install_user_subid_start,
+                podman_install_user_subid_start + podman_install_user_subid_count - 1,
+              )
+            }}
+            --add-subgids
+            {{
+              "%d-%d" | format(
+                podman_install_user_subid_start,
+                podman_install_user_subid_start + podman_install_user_subid_count - 1,
+              )
+            }}
+            {{ podman_install_user_name }}
+
+- name: "Enable Podman session for user {{ podman_install_user_name }}"
+  when: "podman_install_enable_user_service"
+  block:
+    - name: "Allow long-running services for user"
+      ansible.builtin.command:
+        cmd: "loginctl enable-linger {{ podman_install_user_name }}"
+
+    - name: "Start systemd user manager"
+      ansible.builtin.systemd_service:
+        name: "user@{{ _podman_install_user_info.uid }}.service"
+        state: "started"
+
+    - name: "Enable Podman socket"
+      ansible.builtin.systemd_service:
+        name: "{{ podman_install_service_name }}"
+        enabled: true
+        scope: "user"
+        state: "started"
+      become: true
+      become_user: "{{ podman_install_user_name }}"
+      environment:
+        XDG_RUNTIME_DIR: "{{ dirs_runstatedir }}/user/{{ _podman_install_user_info.uid }}"
