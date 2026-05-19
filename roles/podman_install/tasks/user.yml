@@ -41,25 +41,63 @@
         update_password: "always"
       register: "_podman_install_user_info"
 
-    - name: "Allocate UIDs to user {{ podman_install_user_name }}"
+    - name: "Check if subuids are allocated to user {{ podman_install_user_name }}"
       ansible.builtin.command:
-        cmd: >-
-          usermod
-            --add-subuids
+        argv:
+          - "grep"
+          - "--quiet"
+          - "--no-messages"
+          - "^{{ podman_install_user_name }}:{{ podman_install_user_subid_start }}:{{ podman_install_user_subid_count }}$"
+          - "/etc/subuid"
+      register: "_podman_install_subuid_check"
+      changed_when: false
+      failed_when: false
+
+    - name: "Check if subgids are allocated to user {{ podman_install_user_name }}"
+      ansible.builtin.command:
+        argv:
+          - "grep"
+          - "--quiet"
+          - "--no-messages"
+          - "^{{ podman_install_user_name }}:{{ podman_install_user_subid_start }}:{{ podman_install_user_subid_count }}$"
+          - "/etc/subgid"
+      register: "_podman_install_subgid_check"
+      changed_when: false
+      failed_when: false
+
+    - name: "Allocate UIDs to user {{ podman_install_user_name }}"
+      when: "_podman_install_subuid_check.rc != 0"
+      ansible.builtin.command:
+        argv:
+          - "usermod"
+          - "--add-subuids"
+          - >-
             {{
               "%d-%d" | format(
                 podman_install_user_subid_start,
                 podman_install_user_subid_start + podman_install_user_subid_count - 1,
               )
             }}
-            --add-subgids
+          - "{{ podman_install_user_name }}"
+      register: "_podman_install_subuid_add"
+      changed_when: "_podman_install_subuid_add.rc == 0"
+
+    - name: "Allocate GIDs to user {{ podman_install_user_name }}"
+      when: "_podman_install_subgid_check.rc != 0"
+      ansible.builtin.command:
+        argv:
+          - "usermod"
+          - "--add-subgids"
+          - >-
             {{
               "%d-%d" | format(
                 podman_install_user_subid_start,
                 podman_install_user_subid_start + podman_install_user_subid_count - 1,
               )
             }}
-            {{ podman_install_user_name }}
+          - "{{ podman_install_user_name }}"
+      register: "_podman_install_subgid_add"
+      changed_when: "_podman_install_subgid_add.rc == 0"
 
 - name: "Enable Podman session for user {{ podman_install_user_name }}"
   when: "podman_install_enable_user_service"
@@ -67,6 +105,7 @@
     - name: "Allow long-running services for user"
       ansible.builtin.command:
         cmd: "loginctl enable-linger {{ podman_install_user_name }}"
+        creates: "{{ dirs_sharedstatedir }}/systemd/linger/{{ podman_install_user_name }}"
 
     - name: "Start systemd user manager"
       ansible.builtin.systemd_service:
