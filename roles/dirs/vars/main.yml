@@ -223,6 +223,9 @@ dirs_env_home: "{{ ansible_facts.env[dirs_var_home] }}"
 # User directories
 # """"""""""""""""
 
+#: User-specific executable files. Note that this variable is suggested by the
+#: XDG specification but not official.
+dirs_xdg_bin_home: "{{ dirs_home }}/.local/bin"
 #: Directory relative to which user-specific configuration files should be
 #: stored.
 dirs_xgd_config_home: "{{ dirs_home }}/.config"
@@ -255,6 +258,10 @@ dirs_xdg_data_dirs: >-
 # Environment variable names
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+#: Environment variable of the directory hosting the user-specific executable
+#: files. Note that this variable is suggested by the XDG specification but not
+#: official.
+dirs_var_xdg_bin_home: "XDG_BIN_HOME"
 #: Environment variable name of the directory relative to which user-specific
 #: configuration files should be stored.
 dirs_var_xgd_config_home: "XDG_CONFIG_HOME"
@@ -282,6 +289,10 @@ dirs_var_xdg_runtime_dir: "XDG_RUNTIME_DIR"
 # Environment variable values
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+#: Environment value of the directory hosting the user-specific executable
+#: files. Note that this variable is suggested by the XDG specification but not
+#: official.
+dirs_env_xdg_bin_home: "{{ ansible_facts.env[dirs_var_xdg_bin_home] }}"
 #: Environment value of the directory relative to which user-specific
 #: configuration files should be stored.
 dirs_env_xgd_config_home: "{{ ansible_facts.env[dirs_var_xdg_config_home] }}"
