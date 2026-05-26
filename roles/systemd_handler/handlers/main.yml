@@ -1,0 +1,69 @@
+# roles/systemd_handler/handlers/main.yml
+# =======================================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2022 universe.unix authors and contributors.
+#
+# This file is part of the *universe.unix* project.
+#
+# *universe.unix* is a free software project. You can redistribute it
+# and/or modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
+#
+
+- name: "Reload systemd manager configuration"
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+    scope: "{{ systemd_unit_scope | default(omit) }}"
+  listen:
+    - "universe.unix.systemd_handler:daemon_reload"
+
+- name: "Disable systemd unit"
+  ansible.builtin.systemd_service:
+    name: "{{ systemd_unit_name }}"
+    enabled: false
+    scope: "{{ systemd_unit_scope | default(omit) }}"
+  listen: "universe.unix.systemd_handler:disable"
+
+- name: "Enable systemd unit"
+  ansible.builtin.systemd_service:
+    name: "{{ systemd_unit_name }}"
+    enabled: true
+    scope: "{{ systemd_unit_scope | default(omit) }}"
+  listen: "universe.unix.systemd_handler:enable"
+
+- name: "Reload systemd unit"
+  ansible.builtin.systemd_service:
+    name: "{{ systemd_unit_name }}"
+    state: "reloaded"
+    scope: "{{ systemd_unit_scope | default(omit) }}"
+  listen: "universe.unix.systemd_handler:reload"
+
+- name: "Restart systemd unit"
+  ansible.builtin.systemd_service:
+    name: "{{ systemd_unit_name }}"
+    state: "restarted"
+    scope: "{{ systemd_unit_scope | default(omit) }}"
+  listen: "universe.unix.systemd_handler:restart"
+
+- name: "Start systemd unit"
+  ansible.builtin.systemd_service:
+    name: "{{ systemd_unit_name }}"
+    state: "started"
+    scope: "{{ systemd_unit_scope | default(omit) }}"
+  listen: "universe.unix.systemd_handler:start"
+
+- name: "Stop systemd unit"
+  ansible.builtin.systemd_service:
+    name: "{{ systemd_unit_name }}"
+    state: "stopped"
+    scope: "{{ systemd_unit_scope | default(omit) }}"
+  listen: "universe.unix.systemd_handler:stop"

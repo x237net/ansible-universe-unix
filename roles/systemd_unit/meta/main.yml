@@ -1,0 +1,32 @@
+# roles/systemd_unit/meta/main.yml
+# ================================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2026 universe.unix authors and contributors.
+#
+# This file is part of the *universe.unix* project.
+#
+# *universe.unix* is a free software project. You can redistribute it
+# and/or modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
+#
+dependencies:
+  - role: "universe.unix.dirs"
+  - role: "universe.unix.systemd_handler"
+
+galaxy_info:
+  author: "universe.unix authors"
+  description: >-
+    Manage and deploy systemd unit files (services, sockets, timers, etc.) for
+    both system-wide and user-specific sessions, ensuring correct directory
+    placement, and file permissions.
+  license: "MIT"
+  min_ansible_version: "2.15.0"

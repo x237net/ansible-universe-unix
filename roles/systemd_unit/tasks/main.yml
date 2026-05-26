@@ -1,0 +1,63 @@
+# roles/systemd_unit/tasks/main.yml
+# =================================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2026 universe.unix authors and contributors.
+#
+# This file is part of the *universe.unix* project.
+#
+# *universe.unix* is a free software project. You can redistribute it
+# and/or modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
+#
+- name: "Set systemd scope to default"
+  when: "systemd_unit_scope | default('') == ''"
+  ansible.builtin.set_fact:
+    systemd_unit_scope: "{{ _systemd_unit_scope_default }}"
+
+- name: "Check that the systemd scope is valid"
+  ansible.builtin.assert:
+    that:
+      - "systemd_unit_scope in systemd_unit_scope_path"
+    fail_msg: "Unknown systemd scope: {{ systemd_unit_scope }}"
+
+- name: "Install the systemd unit"
+  when: "systemd_unit_state == 'present'"
+  block:
+    - name: "Ensure the systemd unit directory exists"
+      ansible.builtin.file:
+        path: "{{ systemd_unit_scope_path[systemd_unit_scope] }}"
+        state: "directory"
+        owner: "{{ systemd_unit_scope_owner }}"
+        group: "{{ systemd_unit_scope_owner }}"
+        mode: "0755"
+
+    - name: "Install the systemd unit"
+      ansible.builtin.copy:
+        content: "{{ systemd_unit_content | mandatory }}"
+        dest: >-
+          {{ systemd_unit_scope_path[systemd_unit_scope] }}/{{ systemd_unit_name | mandatory }}
+        group: "{{ systemd_unit_scope_owner }}"
+        owner: "{{ systemd_unit_scope_owner }}"
+        mode: "0644"
+        setype: "{{ systemd_unit_scope_setype[systemd_unit_scope] }}"
+      notify: "universe.unix.systemd_handler:daemon_reload"
+
+- name: "Remove systemd unit"
+  when: "systemd_unit_state == 'absent'"
+  ansible.builtin.file:
+    name: >-
+      {{ systemd_unit_scope_path[systemd_unit_scope] }}/{{ systemd_unit_name | mandatory }}
+    state: "absent"
+  notify: "universe.unix.systemd_handler:daemon_reload"
+
+- name: "Flush handlers"
+  ansible.builtin.meta: "flush_handlers"
