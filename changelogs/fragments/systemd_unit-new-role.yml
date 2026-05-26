@@ -1,0 +1,29 @@
+# changelogs/fragments/systemd_unit-new-role.yml
+# ==============================================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2026 universe.unix authors and contributors.
+#
+# This file is part of the *universe.unix* project.
+#
+# *universe.unix* is a free software project. You can redistribute it
+# and/or modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
+#
+major_changes:
+  - |-
+    systemd_unit - Add the ``systemd_unit`` role to deploy and manage systemd
+    unit files (such as services, sockets, timers, or mounts) for both
+    system-wide and user-specific sessions.
+  - |-
+    systemd_handler - Add the ``systemd_handler`` role to provide reusable
+    Ansible handlers for managing systemd unit states and manager
+    configurations.
