@@ -23,4 +23,4 @@
     name: "{{ package_install }}"
     state: "{{ package_install_state }}"
   notify: "system_package_installed"
-  when: "package_install"
+  when: "package_install | mandatory is defined"

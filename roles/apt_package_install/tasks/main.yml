@@ -24,4 +24,4 @@
     state: "{{ package_install_state }}"
     install_recommends: false
   notify: "system_package_installed"
-  when: "package_install"
+  when: "package_install | mandatory is defined"
