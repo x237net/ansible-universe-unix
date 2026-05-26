@@ -1,0 +1,59 @@
+# playbooks/podman_install.yml
+# ============================
+#
+# Copying
+# -------
+#
+# Copyright (c) 2026 universe.unix authors and contributors.
+#
+# This file is part of the *universe.unix* project.
+#
+# *universe.unix* is a free software project. You can redistribute it and/or
+# modify it following the terms of the MIT License.
+#
+# This software project is distributed *as is*, WITHOUT WARRANTY OF ANY KIND;
+# including but not limited to the WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE and NONINFRINGEMENT.
+#
+# You should have received a copy of the MIT License along with
+# *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
+#
+- name: "Podman Install"
+  become: true
+  hosts: "{{ playbook_hosts | default('localhost') }}"
+  vars_prompt:
+    - name: "playbook_hosts"
+      prompt: "Enter the hosts group to target"
+      private: false
+
+    - name: "_playbook_podman_install_enable_system_service"
+      prompt: "Enable the system's Podman API for remote access?"
+      default: "no"
+      private: false
+
+    - name: "_playbook_podman_install_create_user"
+      prompt: "Create a dedicated user to run rootless containers?"
+      default: "yes"
+      private: false
+
+    - name: "podman_install_user_name"
+      prompt: "Username of the dedicated user"
+      default: "podman"
+      private: false
+
+    - name: "_playbook_podman_install_user_subid_start"
+      prompt: "First subordinate user/group ID for the dedicated user"
+      default: "1000000"
+
+    - name: "podman_install_user_home"
+      prompt: "Home directory of the dedicated user"
+      default: "/var/lib/podman"
+  vars:
+    podman_install_create_user: "{{ _playbook_podman_install_create_user | bool }}"
+    podman_install_enable_system_service: >-
+      {{ _playbook_podman_install_enable_system_service | bool }}
+    podman_install_enable_user_service: "{{ podman_install_create_user }}"
+    podman_install_user_subid_start: >-
+      {{ _playbook_podman_install_user_subid_start | int }}
+  roles:
+    - "universe.unix.podman_install"
