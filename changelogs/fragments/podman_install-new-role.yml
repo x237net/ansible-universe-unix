@@ -1,10 +1,10 @@
-# roles/podman_install/defaults/main.yml
-# ======================================
+# changelogs/fragments/podman_install-new-role.yml
+# ================================================
 #
 # Copying
 # -------
 #
-# Copyright (c) 2023 universe.unix authors and contributors.
+# Copyright (c) 2026 universe.unix authors and contributors.
 #
 # This file is part of the *universe.unix* project.
 #
@@ -18,13 +18,8 @@
 # You should have received a copy of the MIT License along with
 # *universe.unix*. If not, see <http://opensource.org/licenses/MIT>.
 #
-podman_install_enable_system_service: false
-podman_install_enable_user_service: false
-
-podman_install_create_user: false
-podman_install_user_name: "podman"
-podman_install_user_group: "{{ podman_install_user_name }}"
-podman_install_user_home: >-
-  {{ dirs_sharedstatedir }}/{{ podman_install_user_name }}
-podman_install_user_subid_start: 1000000
-podman_install_user_subid_count: 65535
+major_changes:
+  - |-
+    podman_install - Add a new role along with a playbook to install `Podman
+    <https://podman.io/>`_ and optionally configure a dedicated user to run
+    rootless containers.
