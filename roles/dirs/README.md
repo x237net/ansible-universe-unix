@@ -114,6 +114,9 @@ machine–that is to say, files for configuring a host.
 
 ### XDG directories
 
+`xgd_bin_home`
+: Directory to which user-specific executable files may be stored. Note that
+this variable is suggested by the XDG specification but not official.
 `xgd_config_home`
 : Directory relative to which user-specific configuration files should be
 stored.
